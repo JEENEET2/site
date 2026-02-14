@@ -6,6 +6,22 @@ const prisma = new PrismaClient();
 const PORT = process.env.PORT || 4000;
 
 async function startServer() {
+  // Check if DATABASE_URL is set
+  const databaseUrl = process.env.DATABASE_URL;
+  
+  if (!databaseUrl || databaseUrl.trim() === '') {
+    console.warn('⚠️  DATABASE_URL not set - running without database');
+    console.log('⚠️  API will return error messages for all endpoints');
+    
+    // Start server without database
+    app.listen(PORT, () => {
+      console.log(`🚀 Server running on port ${PORT} (NO DATABASE)`);
+      console.log(`📍 API: http://localhost:${PORT}/api`);
+      console.log(`🏥 Health: http://localhost:${PORT}/api/health`);
+    });
+    return;
+  }
+
   try {
     // Test database connection
     await prisma.$connect();
