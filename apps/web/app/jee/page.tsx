@@ -111,7 +111,7 @@ const totalEstimatedHours = Object.values(jeeChaptersData).flat().reduce((acc, c
 
 export default function JEEPage() {
   const [activeSubject, setActiveSubject] = useState('physics');
-  const [examMode, setExamMode] = useState<'JEE_Main' | 'JEE_Advanced'>('JEE_Main');
+  const [examMode, setExamMode] = useState<'JEE_MAIN' | 'JEE_ADVANCED'>('JEE_MAIN');
 
   // Get current subject data
   const currentSubject = jeeSubjects.find((s) => s.id === activeSubject)!;
@@ -125,7 +125,7 @@ export default function JEEPage() {
     subjectName: currentSubject.name,
     subjectSlug: currentSubject.slug,
     examType: examMode,
-    weightage: examMode === 'JEE_Main' ? ch.jeeMainWeightage : ch.jeeAdvancedWeightage,
+    weightage: examMode === 'JEE_MAIN' ? ch.jeeMainWeightage : ch.jeeAdvancedWeightage,
     status: 'not_started' as const,
     completionPercentage: 0,
     topics: [],
@@ -171,10 +171,10 @@ export default function JEEPage() {
             >
               <div className="inline-flex rounded-lg border p-1 bg-muted/50">
                 <button
-                  onClick={() => setExamMode('JEE_Main')}
+                  onClick={() => setExamMode('JEE_MAIN')}
                   className={cn(
                     'px-6 py-2 rounded-md text-sm font-medium transition-all',
-                    examMode === 'JEE_Main'
+                    examMode === 'JEE_MAIN'
                       ? 'bg-physics text-white shadow-md'
                       : 'hover:bg-muted'
                   )}
@@ -183,10 +183,10 @@ export default function JEEPage() {
                   JEE Main
                 </button>
                 <button
-                  onClick={() => setExamMode('JEE_Advanced')}
+                  onClick={() => setExamMode('JEE_ADVANCED')}
                   className={cn(
                     'px-6 py-2 rounded-md text-sm font-medium transition-all',
-                    examMode === 'JEE_Advanced'
+                    examMode === 'JEE_ADVANCED'
                       ? 'bg-mathematics text-white shadow-md'
                       : 'hover:bg-muted'
                   )}
@@ -228,7 +228,7 @@ export default function JEEPage() {
               <Card className="bg-card/50 backdrop-blur">
                 <CardContent className="pt-6 text-center">
                   <Target className="h-8 w-8 mx-auto mb-2 text-chemistry" />
-                  <p className="text-3xl font-bold">{examMode === 'JEE_Main' ? '300' : '360'}</p>
+                  <p className="text-3xl font-bold">{examMode === 'JEE_MAIN' ? '300' : '360'}</p>
                   <p className="text-sm text-muted-foreground">Total Marks</p>
                 </CardContent>
               </Card>
@@ -313,7 +313,7 @@ export default function JEEPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <TrendingUp className="h-5 w-5 text-primary" />
-                High Weightage Chapters - {examMode === 'JEE_Main' ? 'JEE Main' : 'JEE Advanced'}
+                High Weightage Chapters - {examMode === 'JEE_MAIN' ? 'JEE Main' : 'JEE Advanced'}
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -324,7 +324,7 @@ export default function JEEPage() {
                       ...ch,
                       subject,
                       weightage:
-                        examMode === 'JEE_Main' ? ch.jeeMainWeightage : ch.jeeAdvancedWeightage,
+                        examMode === 'JEE_MAIN' ? ch.jeeMainWeightage : ch.jeeAdvancedWeightage,
                     }))
                   )
                   .filter((ch) => ch.weightage > 0)
@@ -333,7 +333,7 @@ export default function JEEPage() {
                   .map((chapter) => (
                     <Link
                       key={chapter.id}
-                      href={`/jee/${chapter.subject}/${chapter.id}`}
+                      href={`/jee/${chapter.subject}/${chapter.id}` as any}
                       className="flex items-center justify-between p-4 rounded-lg border bg-card hover:bg-muted/50 transition-colors"
                     >
                       <div className="flex-1 min-w-0">
@@ -367,11 +367,11 @@ export default function JEEPage() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Calendar className="h-5 w-5" />
-                  {examMode === 'JEE_Main' ? 'JEE Main' : 'JEE Advanced'} Exam Pattern
+                  {examMode === 'JEE_MAIN' ? 'JEE Main' : 'JEE Advanced'} Exam Pattern
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                {examMode === 'JEE_Main' ? (
+                {examMode === 'JEE_MAIN' ? (
                   <>
                     <div className="grid grid-cols-2 gap-4">
                       <div>
@@ -451,12 +451,12 @@ export default function JEEPage() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Award className="h-5 w-5" />
-                  Study Tips for {examMode === 'JEE_Main' ? 'JEE Main' : 'JEE Advanced'}
+                  Study Tips for {examMode === 'JEE_MAIN' ? 'JEE Main' : 'JEE Advanced'}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-3">
-                  {examMode === 'JEE_Main' ? (
+                  {examMode === 'JEE_MAIN' ? (
                     <>
                       <li className="flex items-start gap-2">
                         <CheckCircle2 className="h-5 w-5 text-green-500 shrink-0 mt-0.5" />
