@@ -19,14 +19,14 @@ function useTabs() {
 }
 
 interface TabsProps extends React.HTMLAttributes<HTMLDivElement> {
-  defaultValue: string;
+  defaultValue?: string;
   value?: string;
   onValueChange?: (value: string) => void;
 }
 
 const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(
   ({ className, defaultValue, value, onValueChange, children, ...props }, ref) => {
-    const [activeTab, setActiveTabState] = React.useState(value || defaultValue);
+    const [activeTab, setActiveTabState] = React.useState(value || defaultValue || '');
 
     const setActiveTab = React.useCallback(
       (newValue: string) => {
