@@ -87,7 +87,7 @@ const examTypes: { value: ExamType | 'all'; label: string; color: string }[] = [
 ];
 
 const years = Array.from({ length: 10 }, (_, i) => 2024 - i);
-const difficulties: { value: DifficultyLevel | 'all'; label: string; color: string }[] = [
+const difficulties: { value: DifficultyLevel | 'all'; label: string; color?: string }[] = [
   { value: 'all', label: 'All' },
   { value: 'easy', label: 'Easy', color: 'text-green-500' },
   { value: 'medium', label: 'Medium', color: 'text-yellow-500' },
