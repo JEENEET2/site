@@ -11,25 +11,30 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://jeeneet.com'),
   title: {
-    default: 'NEET/JEE Preparation Platform',
-    template: '%s | NEET/JEE Prep',
+    default: 'JEENEET - NEET/JEE Preparation',
+    template: '%s | JEENEET',
   },
   description: 'India\'s most structured free NEET/JEE preparation platform. Practice PYQs, take mock tests, track progress, and ace your exams.',
   keywords: ['NEET', 'JEE', 'JEE Main', 'JEE Advanced', 'Medical', 'Engineering', 'Preparation', 'Mock Tests', 'PYQ'],
-  authors: [{ name: 'NEET/JEE Prep Team' }],
-  creator: 'NEET/JEE Prep',
+  authors: [{ name: 'JEENEET Team' }],
+  creator: 'JEENEET',
   openGraph: {
     type: 'website',
     locale: 'en_IN',
     url: 'https://jeeneet.com',
-    siteName: 'NEET/JEE Preparation Platform',
+    siteName: 'JEENEET - NEET/JEE Preparation',
     description: 'India\'s most structured free NEET/JEE preparation platform.',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'NEET/JEE Preparation Platform',
+    title: 'JEENEET - NEET/JEE Preparation',
     description: 'India\'s most structured free NEET/JEE preparation platform.',
+  },
+  icons: {
+    icon: '/icon.svg',
+    apple: '/icon.svg',
   },
   robots: {
     index: true,
