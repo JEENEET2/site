@@ -7,16 +7,16 @@ India's most structured free NEET/JEE preparation platform built with modern web
 ## 🚀 Tech Stack
 
 ### Frontend
-- **Next.js 14** - React framework with App Router
-- **TypeScript** - Type-safe development
-- **Tailwind CSS** - Utility-first CSS framework
-- **Framer Motion** - Smooth animations
+- **Next.js 14** – React framework with App Router
+- **TypeScript** – Type‑safe development
+- **Tailwind CSS** – Utility‑first CSS framework
+- **Framer Motion** – Smooth animations
 
 ### Backend
-- **Node.js** - JavaScript runtime
-- **Express.js** - Web framework
-- **Prisma** - ORM for PostgreSQL
-- **JWT** - Authentication
+- **Node.js** – JavaScript runtime
+- **Express.js** – Web framework
+- **Prisma** – ORM for PostgreSQL
+- **JWT** – Authentication
 
 ## 📁 Project Structure
 
@@ -24,103 +24,65 @@ India's most structured free NEET/JEE preparation platform built with modern web
 jeeneet/
 ├── apps/
 │   ├── web/          # Next.js Frontend
-│   └── api/          # Express.js Backend
+│   └── api/          # Express Backend
 ├── packages/
 │   ├── types/        # Shared TypeScript types
 │   └── ui/           # Shared UI components
 ├── docs/             # Documentation
-└── package.json      # Root package.json with workspaces
+├── render.yaml       # Render deployment config
+└── package.json      # Root monorepo config
 ```
 
-## 🛠️ Getting Started
-
-### Prerequisites
-
-- Node.js 18+
-- npm 10+ or pnpm 8+
-- PostgreSQL 15+
-- Redis (optional)
-
-### Installation
+## 🛠️ Getting Started (Local Development)
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/JEENEET2/site.git
    cd jeeneet
    ```
-
 2. **Install dependencies**
    ```bash
    npm install
    ```
-
 3. **Set up environment variables**
    ```bash
    cp .env.example .env.local
+   # Edit .env.local with your own secrets and DB connection string
    ```
-   Edit `.env.local` with your configuration.
-
-4. **Set up the database**
+4. **Run the database migrations**
    ```bash
-   npm run db:generate  # Generate Prisma client
-   npm run db:push      # Push schema to database
+   npm run db:push   # Generates Prisma client and pushes schema
    ```
-
 5. **Start development servers**
    ```bash
-   npm run dev
+   npm run dev        # Starts both web (http://localhost:3000) and API (http://localhost:4000)
    ```
-   This starts both frontend (port 3000) and backend (port 4000).
 
-### Individual Development Servers
+## 📦 Production Build
 
-```bash
-npm run dev:web    # Start only frontend
-npm run dev:api    # Start only backend
-```
+- Build the Next.js frontend:
+  ```bash
+  npm run build      # Runs Turbo to build all apps
+  ```
+- The compiled output lives in `.next` (frontend) and `dist` (API).
 
-## 📜 Available Scripts
+## ☁️ Deploy to Render
 
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Start all development servers |
-| `npm run build` | Build all apps and packages |
-| `npm run lint` | Lint all code |
-| `npm run test` | Run all tests |
-| `npm run clean` | Clean all build artifacts |
-| `npm run format` | Format code with Prettier |
-| `npm run db:generate` | Generate Prisma client |
-| `npm run db:push` | Push database schema |
-| `npm run db:studio` | Open Prisma Studio |
+Render uses the [`render.yaml`](render.yaml) file at the repository root to spin up two services:
 
-## 🎨 Design System
+1. **Web Service (`jeeneet-web`)**
+   - **Build Command**: `npm install && npm run build`
+   - **Start Command**: `npm run start`
+   - **Static Publish Path**: `.next`
+   - **Health Check**: `/`
+2. **Web Service (`jeeneet-api`)**
+   - **Build Command**: `cd apps/api && npm install && npm run build`
+   - **Start Command**: `cd apps/api && npm run start`
+   - **Health Check**: `/api/health`
 
-The platform follows a clean, minimal Stripe.com-style design:
+Create a new Render **Web Service**, select **Node.js**, and point it to this repository. Render will automatically detect `render.yaml` and configure the two services.
 
-- **Primary Color**: Blue (#3B82F6)
-- **Neutral Grays**: Tailwind's neutral palette
-- **Dark/Light Theme**: Full theme support from the start
-- **Typography**: Inter font family
-- **Animations**: Smooth transitions with Framer Motion
-
-## 📚 Features
-
-### For Students
-- 📊 **Smart Dashboard** - Track progress, streaks, and weak areas
-- 📝 **PYQ Engine** - Practice previous year questions with filters
-- 🎯 **Mock Tests** - Real exam simulation with analytics
-- 📓 **Mistake Notebook** - Track and revise mistakes
-- 📚 **Resources** - NCERT PDFs, formula sheets, videos
-- 🤖 **AI Doubt Helper** - Get instant doubt resolution
-- ⏱️ **Pomodoro Timer** - Stay focused while studying
-
-### For Admins
-- 👥 User management
-- 📝 Question management
-- 📊 Analytics dashboard
-- 📁 Resource management
-
-## 📖 Documentation
+## 📚 Documentation
 
 - [Architecture](docs/architecture.md)
 - [Database Schema](docs/database-schema.md)

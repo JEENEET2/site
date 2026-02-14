@@ -158,7 +158,7 @@ class TestService {
     }
   ): Promise<any> {
     // Get the attempt
-    const attempt = await testRepository.getAttemptById(attemptId);
+    const attempt = await testRepository.getAttemptById(attemptId) as any;
     if (!attempt) {
       throw new Error('Attempt not found');
     }
@@ -189,9 +189,9 @@ class TestService {
       // Calculate marks
       const markingScheme = attempt.test.markingScheme as any;
       if (isCorrect) {
-        marksObtained = markingScheme?.correct ?? 4;
+        marksObtained = Number(markingScheme?.correct ?? 4);
       } else {
-        marksObtained = markingScheme?.incorrect ?? -1;
+        marksObtained = Number(markingScheme?.incorrect ?? -1);
       }
     }
 
@@ -214,7 +214,7 @@ class TestService {
    */
   async finishAttempt(attemptId: string): Promise<any> {
     // Get the attempt with all responses
-    const attempt = await testRepository.getAttemptResults(attemptId);
+    const attempt = await testRepository.getAttemptResults(attemptId) as any;
     if (!attempt) {
       throw new Error('Attempt not found');
     }
@@ -247,10 +247,10 @@ class TestService {
 
         if (response.isCorrect) {
           correctAnswers++;
-          marksObtained += response.marksObtained || 0;
+          marksObtained += Number(response.marksObtained) || 0;
         } else {
           incorrectAnswers++;
-          marksObtained += response.marksObtained || 0; // negative marks
+          marksObtained += Number(response.marksObtained) || 0; // negative marks
         }
 
         // Subject-wise scores
@@ -258,14 +258,14 @@ class TestService {
         if (!subjectWiseScores[subjectId]) {
           subjectWiseScores[subjectId] = 0;
         }
-        subjectWiseScores[subjectId] += response.marksObtained || 0;
+        subjectWiseScores[subjectId] += Number(response.marksObtained) || 0;
 
         // Chapter-wise scores
         const chapterId = question.chapterId;
         if (!chapterWiseScores[chapterId]) {
           chapterWiseScores[chapterId] = 0;
         }
-        chapterWiseScores[chapterId] += response.marksObtained || 0;
+        chapterWiseScores[chapterId] += Number(response.marksObtained) || 0;
 
         // Time distribution by subject
         if (!timeDistribution[subjectId]) {

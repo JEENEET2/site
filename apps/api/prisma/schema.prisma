@@ -237,6 +237,7 @@ model Question {
   mistakes Mistake[]
   bookmarks Bookmark[]
   notes Note[]
+  answerResponses AnswerResponse[]
 
   @@index([chapterId])
   @@index([subjectId])
@@ -500,6 +501,7 @@ model AnswerResponse {
 
   // Relations
   testAttempt TestAttempt @relation(fields: [attemptId], references: [id], onDelete: Cascade)
+  question Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
 
   @@unique([attemptId, questionId])
   @@map("answer_responses")
@@ -609,6 +611,7 @@ model ChapterResource {
   chapter Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
   resource Resource @relation(fields: [resourceId], references: [id], onDelete: Cascade)
 
+  @@unique([chapterId, resourceId])
   @@map("chapter_resources")
 }
 

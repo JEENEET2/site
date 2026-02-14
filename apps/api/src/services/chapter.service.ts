@@ -7,6 +7,21 @@ import chapterRepository, {
 } from '../repositories/chapter.repository';
 import progressRepository from '../repositories/progress.repository';
 
+// Helper to convert Prisma Decimal fields to number
+function convertChapterToResponse(chapter: any): ChapterResponse {
+  return {
+    ...chapter,
+    neetWeightage: chapter.neetWeightage ? Number(chapter.neetWeightage) : null,
+    jeeMainWeightage: chapter.jeeMainWeightage ? Number(chapter.jeeMainWeightage) : null,
+    jeeAdvancedWeightage: chapter.jeeAdvancedWeightage ? Number(chapter.jeeAdvancedWeightage) : null,
+    estimatedHours: chapter.estimatedHours ? Number(chapter.estimatedHours) : null,
+  };
+}
+
+function convertChaptersToResponse(chapters: any[]): ChapterResponse[] {
+  return chapters.map(convertChapterToResponse);
+}
+
 export interface ChapterResponse {
   id: string;
   subjectId: string;
@@ -61,7 +76,7 @@ class ChapterService {
     }
 
     const chapter = await chapterRepository.create(data);
-    return chapter;
+    return convertChapterToResponse(chapter);
   }
 
   /**
@@ -93,7 +108,13 @@ class ChapterService {
       return null;
     }
 
-    return chapter as ChapterWithTopics;
+    return {
+      ...chapter,
+      neetWeightage: chapter.neetWeightage ? Number(chapter.neetWeightage) : null,
+      jeeMainWeightage: chapter.jeeMainWeightage ? Number(chapter.jeeMainWeightage) : null,
+      jeeAdvancedWeightage: chapter.jeeAdvancedWeightage ? Number(chapter.jeeAdvancedWeightage) : null,
+      estimatedHours: chapter.estimatedHours ? Number(chapter.estimatedHours) : null,
+    } as ChapterWithTopics;
   }
 
   /**
@@ -115,7 +136,7 @@ class ChapterService {
       throw new Error('Subject ID is required');
     }
 
-    return chapterRepository.findBySubject(subjectId);
+    return chapterRepository.findBySubject(subjectId).then(convertChaptersToResponse);
   }
 
   /**
@@ -125,7 +146,7 @@ class ChapterService {
     examType: 'NEET' | 'JEE_MAIN' | 'JEE_ADVANCED',
     subjectId?: string
   ): Promise<ChapterResponse[]> {
-    return chapterRepository.findByExam(examType, subjectId);
+    return chapterRepository.findByExam(examType, subjectId).then(convertChaptersToResponse);
   }
 
   /**
@@ -144,7 +165,7 @@ class ChapterService {
     const progress = await chapterRepository.getUserProgress(chapterId, userId);
 
     return {
-      chapter,
+      ...convertChapterToResponse(chapter),
       progress,
     };
   }
@@ -175,7 +196,7 @@ class ChapterService {
     }
 
     const updatedChapter = await chapterRepository.update(id, data);
-    return updatedChapter;
+    return convertChapterToResponse(updatedChapter);
   }
 
   /**
@@ -189,7 +210,7 @@ class ChapterService {
     }
 
     const chapter = await chapterRepository.delete(id);
-    return chapter;
+    return convertChapterToResponse(chapter);
   }
 
   /**
@@ -215,12 +236,12 @@ class ChapterService {
     
     // Get progress for all chapters
     const chaptersWithProgress = await Promise.all(
-      result.data.map(async (chapter) => {
+      result.data.map(async (chapter: any) => {
         const progress = await chapterRepository.getUserProgress(chapter.id, userId);
         return {
-          ...chapter,
+          ...convertChapterToResponse(chapter),
           progress,
-        };
+        } as ChapterWithProgress;
       })
     );
 

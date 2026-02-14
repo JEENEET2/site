@@ -253,16 +253,17 @@ class MistakeRepository {
 
     // SM-2 algorithm for spaced repetition
     let { easeFactor, intervalDays, repetition } = mistake;
-    easeFactor = Number(easeFactor);
+    const easeFactorNum = Number(easeFactor);
+    let intervalDaysNum = Number(intervalDays);
 
     if (quality >= 3) {
       // Correct response
       if (repetition === 0) {
-        intervalDays = 1;
+        intervalDaysNum = 1;
       } else if (repetition === 1) {
-        intervalDays = 6;
+        intervalDaysNum = 6;
       } else {
-        intervalDays = Math.round(intervalDays * easeFactor);
+        intervalDaysNum = Math.round(intervalDaysNum * easeFactorNum);
       }
       repetition += 1;
     } else {
@@ -272,17 +273,17 @@ class MistakeRepository {
     }
 
     // Update ease factor
-    easeFactor = Math.max(
+    const newEaseFactor = Math.max(
       1.3,
-      easeFactor + 0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02)
+      easeFactorNum + 0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02)
     );
 
     // Calculate next revision date
     const nextRevisionDate = new Date();
-    nextRevisionDate.setDate(nextRevisionDate.getDate() + intervalDays);
+    nextRevisionDate.setDate(nextRevisionDate.getDate() + intervalDaysNum);
 
     // Check if mastered (correctly revised 3+ times with interval > 21 days)
-    const isMastered = repetition >= 3 && intervalDays >= 21;
+    const isMastered = repetition >= 3 && intervalDaysNum >= 21;
 
     return prisma.mistake.update({
       where: {
@@ -296,8 +297,8 @@ class MistakeRepository {
         lastRevisedAt: new Date(),
         nextRevisionDate,
         isMastered,
-        easeFactor,
-        intervalDays,
+        easeFactor: newEaseFactor,
+        intervalDays: intervalDaysNum,
         repetition,
       },
     });
