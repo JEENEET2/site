@@ -29,10 +29,10 @@ export interface PYQCardProps {
   difficultyLevel: 'easy' | 'medium' | 'hard';
   sourceExam: string;
   sourceYear: number;
-  subjectId: string;
-  subjectName: string;
-  chapterId: string;
-  chapterName: string;
+  subjectId?: string;
+  subjectName?: string;
+  chapterId?: string;
+  chapterName?: string;
   topicId?: string;
   topicName?: string;
   solutionText?: string;
