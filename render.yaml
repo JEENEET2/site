@@ -3,7 +3,7 @@ services:
     name: jeeneet-web
     env: node
     region: oregon
-    buildCommand: npm install && npm run build
+    buildCommand: cd apps/web && npm install && npm run build
     startCommand: cd apps/web && npm run start
     staticPublishPath: .next
     healthCheckPath: /
