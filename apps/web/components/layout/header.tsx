@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useTheme } from 'next-themes';
 import { Moon, Sun, Menu, X, User, LogOut, Settings, LayoutDashboard, ChevronDown } from 'lucide-react';
 import { useState, useEffect } from 'react';
@@ -63,15 +64,16 @@ export function Header() {
     >
       <nav className="container flex h-16 items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center space-x-1 group">
-          <span className="text-2xl font-bold text-primary group-hover:text-primary/80 transition-colors">
-            NEET
-          </span>
-          <span className="text-2xl font-bold group-hover:text-foreground/80 transition-colors">
-            JEE
-          </span>
-          <span className="text-2xl font-light text-muted-foreground ml-1 hidden sm:inline">
-            Prep
+        <Link href="/" className="flex items-center space-x-2 group">
+          <Image
+            src="/logo.svg"
+            alt="JEENEET Logo"
+            width={36}
+            height={36}
+            className="rounded-lg"
+          />
+          <span className="text-xl font-bold group-hover:text-foreground/80 transition-colors hidden sm:inline">
+            JEENEET
           </span>
         </Link>
 

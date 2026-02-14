@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 const footerLinks = {
   product: [
@@ -30,8 +31,14 @@ export function Footer() {
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
             <Link href="/" className="flex items-center space-x-2">
-              <span className="text-2xl font-bold text-primary">NEET</span>
-              <span className="text-2xl font-bold">JEE</span>
+              <Image
+                src="/logo.svg"
+                alt="JEENEET Logo"
+                width={32}
+                height={32}
+                className="rounded-lg"
+              />
+              <span className="text-xl font-bold">JEENEET</span>
             </Link>
             <p className="mt-4 text-sm text-muted-foreground">
               India's most structured free NEET/JEE preparation platform.
