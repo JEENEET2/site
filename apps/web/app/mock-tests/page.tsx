@@ -105,7 +105,7 @@ export default function MockTestsPage() {
                           {test.attempts} attempts
                         </span>
                         <Button asChild>
-                          <Link href={`/mock-tests/${test.id}`}>Start Test</Link>
+                          <Link href={`/mock-tests/${test.id}` as any}>Start Test</Link>
                         </Button>
                       </div>
                     </CardContent>
