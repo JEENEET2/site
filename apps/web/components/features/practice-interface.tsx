@@ -41,7 +41,7 @@ export interface PracticeInterfaceProps {
   className?: string;
 }
 
-interface PracticeQuestion {
+export interface PracticeQuestion {
   id: string;
   questionText: string;
   questionImageUrl?: string;
@@ -64,7 +64,7 @@ interface PracticeOption {
   explanation?: string;
 }
 
-interface PracticeAnswer {
+export interface PracticeAnswer {
   questionId: string;
   answer: string | string[];
   isMarked: boolean;
