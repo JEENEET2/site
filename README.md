@@ -1,5 +1,7 @@
 # NEET/JEE Preparation Platform
 
+![Production Ready](https://img.shields.io/badge/status-production%20ready-brightgreen)
+
 India's most structured free NEET/JEE preparation platform built with modern web technologies.
 
 ## 🚀 Tech Stack
@@ -15,11 +17,6 @@ India's most structured free NEET/JEE preparation platform built with modern web
 - **Express.js** - Web framework
 - **Prisma** - ORM for PostgreSQL
 - **JWT** - Authentication
-
-### Database & Infrastructure
-- **PostgreSQL** - Primary database
-- **Redis** - Caching and sessions (optional)
-- **Cloudinary** - File storage
 
 ## 📁 Project Structure
 
@@ -73,7 +70,6 @@ jeeneet/
    ```bash
    npm run dev
    ```
-
    This starts both frontend (port 3000) and backend (port 4000).
 
 ### Individual Development Servers
