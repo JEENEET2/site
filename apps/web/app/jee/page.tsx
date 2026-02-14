@@ -333,7 +333,7 @@ export default function JEEPage() {
                   .map((chapter) => (
                     <Link
                       key={chapter.id}
-                      href={`/jee/${chapter.subject}/${chapter.id}` as any}
+                      href={`/jee/${chapter.subject}/${chapter.id}`}
                       className="flex items-center justify-between p-4 rounded-lg border bg-card hover:bg-muted/50 transition-colors"
                     >
                       <div className="flex-1 min-w-0">

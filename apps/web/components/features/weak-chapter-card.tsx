@@ -95,7 +95,7 @@ export function WeakChapterCard({ chapter, className }: WeakChapterCardProps) {
             )}
           </div>
           <Button size="sm" variant="outline" asChild>
-            <Link href={`/pyqs?chapter=${chapter.id}`}>
+            <Link href={`/pyqs?chapter=${chapter.id}` as any}>
               Practice
               <ArrowRight className="ml-1 h-3 w-3" />
             </Link>

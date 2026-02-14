@@ -362,7 +362,7 @@ export function PYQCard({
                       {copied ? 'Copied!' : 'Copy'}
                     </Button>
                     <Button size="sm" variant="ghost" asChild>
-                      <Link href={`/pyqs/practice/${id}`}>
+                      <Link href={`/pyqs/practice/${id}` as any}>
                         <ExternalLink className="h-4 w-4 mr-1" />
                         Practice
                       </Link>
