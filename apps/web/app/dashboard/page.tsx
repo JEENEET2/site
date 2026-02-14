@@ -37,10 +37,10 @@ import { useAuthStore } from '@/stores/auth.store';
 
 // Mock data
 const mockStats = [
-  { name: 'Questions Solved', value: '1,234', icon: FileText, change: '+12%', changeType: 'positive' as const },
-  { name: 'Mock Tests Taken', value: '23', icon: Timer, change: '+5%', changeType: 'positive' as const },
-  { name: 'Accuracy', value: '78%', icon: Target, change: '+3%', changeType: 'positive' as const },
-  { name: 'Study Streak', value: '15 days', icon: Flame, change: '🔥', changeType: 'neutral' as const },
+  { title: 'Questions Solved', value: '1,234', icon: FileText, change: '+12%', changeType: 'positive' as const },
+  { title: 'Mock Tests Taken', value: '23', icon: Timer, change: '+5%', changeType: 'positive' as const },
+  { title: 'Accuracy', value: '78%', icon: Target, change: '+3%', changeType: 'positive' as const },
+  { title: 'Study Streak', value: '15 days', icon: Flame, change: '🔥', changeType: 'neutral' as const },
 ];
 
 const mockSubjects = [
@@ -125,7 +125,7 @@ export default function DashboardPage() {
           {/* Stats Grid */}
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-8">
             {mockStats.map((stat) => (
-              <StatsCard key={stat.name} {...stat} />
+              <StatsCard key={stat.title} {...stat} />
             ))}
           </div>
 
@@ -240,7 +240,7 @@ export default function DashboardPage() {
                     <CardDescription>Your latest learning activities</CardDescription>
                   </div>
                   <Button variant="ghost" size="sm" asChild>
-                    <Link href="/activity">
+                    <Link href={"/activity" as any}>
                       View all
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>
@@ -331,7 +331,7 @@ export default function DashboardPage() {
                     Areas to Improve
                   </CardTitle>
                   <Button variant="ghost" size="sm" asChild>
-                    <Link href="/weak-chapters">View all</Link>
+                    <Link href={"/weak-chapters" as any}>View all</Link>
                   </Button>
                 </CardHeader>
                 <CardContent>
